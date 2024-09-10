@@ -5,8 +5,10 @@ const app = express();
 app.use(cors());
 const port = 3000;
 
+let API_KEY;
+
 const pokemon = require('pokemontcgsdk');
-pokemon.configure({apiKey:'dbc834fd-849c-44ff-ad03-77ac3422b560'})
+pokemon.configure({apiKey:`${API_KEY}`})
 
 
 app.get('/sets', async (req, res) => {
@@ -52,6 +54,6 @@ app.get('/cards/:name', async (req, res) => {
 
 app.listen(port, () => {
     console.log(`~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n
-        Server is running on http://localhost:${port}
+                    Server is running
         \n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`);
 });
