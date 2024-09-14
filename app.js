@@ -16,7 +16,7 @@ app.get('/sets', async (req, res) => {
 
         console.log(`server called by ${req.ip}`);
 
-        pokemon.set.all({orderBy: "releaseDate", select: "name,id"})
+        pokemon.set.all({orderBy: "releaseDate", select: "name,id,printedTotal"})
         .then((sets) => {
             res.json(sets);
             console.log('loaded sets\n~~~~~~~~~~~~~~~~~~~~~');
