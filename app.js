@@ -29,6 +29,35 @@ app.get('/sets', async (req, res) => {
         }
 });
 
+app.get('/cards/random', async (req, res) => {
+    try {
+
+        console.log(`server called by ${req.ip}`);
+        console.log(`picking random set`);
+
+        pokemon.set.all({orderBy: "releaseDate", select: "name,id"})
+        .then((sets) => {
+            console.log('loaded sets\n~~~~~~~~~~~~~~~~~~~~~');
+        })
+
+        JSON.parse(sets);
+        rand = Math.random() * sets.length;
+
+        pokemon.card.all({ q: `set.id:${sets[rand].name}`, orderBy:'number',
+                        select: "rarity,name,number,images,set"})
+            .then((cards) => {
+                res.json(cards);
+                console.log(`${sets[rand].name}} cards sent\n~~~~~~~~~~~~~~~~~~~~~`);
+
+            })
+        }
+        catch (error) {
+            // Handle any errors that occur
+            console.error('Error fetching data:', error);
+            res.status(500).send('Internal Server Error');
+        }
+});
+
 app.get('/cards/:name', async (req, res) => {
     try {
 
