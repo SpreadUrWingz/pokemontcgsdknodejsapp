@@ -39,11 +39,11 @@ app.get('/cards/random', async (req, res) => {
         .then((sets) => {
             randomSet = sets[Math.random() * sets.length];
             console.log('random set selected\n~~~~~~~~~~~~~~~~~~~~~');
-            pokemon.card.all({ q: `set.id:${randomSet.name}`, orderBy:'number',
+            pokemon.card.all({ q: `set.id:${randomSet.params['name']}`, orderBy:'number',
                 select: "rarity,name,number,images,set"})
              .then((cards) => {
             res.json(cards);
-            console.log(`${randomSet.name}} cards sent\n~~~~~~~~~~~~~~~~~~~~~`);
+            console.log(`${randomSet.params['name']}} cards sent\n~~~~~~~~~~~~~~~~~~~~~`);
             })
         })
 
