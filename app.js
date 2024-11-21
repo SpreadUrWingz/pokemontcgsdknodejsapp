@@ -37,9 +37,9 @@ app.get('/cards/random', async (req, res) => {
 
         pokemon.set.all({orderBy: "releaseDate", select: "name,id"})
         .then((sets) => {
-            randomNum = Math.random() * sets.length;
+            randomNum = Math.floor(Math.random() * sets.length);
             console.log('random set selected\n~~~~~~~~~~~~~~~~~~~~~');
-            pokemon.card.all({ q: `set.id:${sets[randomNum].data.name}`, orderBy:'number',
+            pokemon.card.all({ q: `set.id:${sets[randomNum].data.id}`, orderBy:'number',
                 select: "rarity,name,number,images,set"})
              .then((cards) => {
             res.json(cards);
