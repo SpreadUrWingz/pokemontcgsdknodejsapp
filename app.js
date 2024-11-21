@@ -37,17 +37,17 @@ app.get('/cards/random', async (req, res) => {
 
         pokemon.set.all({orderBy: "releaseDate", select: "name,id"})
         .then((sets) => {
-            JSON.parse(sets);
-            console.log('loaded sets\n~~~~~~~~~~~~~~~~~~~~~');
+            randomSet = sets[Math.random() * sets.length];
+            console.log('random set selected\n~~~~~~~~~~~~~~~~~~~~~');
         })
 
-        rand = Math.random() * sets.length;
+        
 
-        pokemon.card.all({ q: `set.id:${sets[rand].name}`, orderBy:'number',
+        pokemon.card.all({ q: `set.id:${randomSet.name}`, orderBy:'number',
                         select: "rarity,name,number,images,set"})
             .then((cards) => {
                 res.json(cards);
-                console.log(`${sets[rand].name}} cards sent\n~~~~~~~~~~~~~~~~~~~~~`);
+                console.log(`${randomSet.name}} cards sent\n~~~~~~~~~~~~~~~~~~~~~`);
 
             })
         }
